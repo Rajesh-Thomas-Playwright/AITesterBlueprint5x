@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test Plan - VWO Login Dashboard</title>
+<style>
+  :root { --ink:#1f2937; --muted:#6b7280; --brand:#1e3a8a; --line:#d1d5db; --bg:#f3f4f6; }
+  * { box-sizing:border-box; }
+  body { font-family:"Segoe UI",Arial,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.55; font-size:14px; }
+  .page { max-width:900px; margin:24px auto; background:#fff; padding:48px 56px; box-shadow:0 1px 4px rgba(0,0,0,.12); }
+  h1 { color:var(--brand); font-size:30px; margin:0 0 4px; }
+  h2 { color:var(--brand); font-size:20px; border-bottom:2px solid var(--brand); padding-bottom:4px; margin-top:36px; }
+  h3 { font-size:15px; margin:18px 0 6px; }
+  .sub { color:var(--muted); margin-bottom:20px; }
+  table { border-collapse:collapse; width:100%; margin:10px 0; font-size:13px; }
+  th, td { border:1px solid var(--line); padding:6px 9px; text-align:left; vertical-align:top; }
+  th { background:#e8edf8; }
+  ul, ol { margin:6px 0 6px 20px; padding:0; }
+  .toc ol { columns:2; }
+  .tbd { background:#fff3cd; padding:0 4px; border-radius:2px; }
+  .note { background:#f8fafc; border-left:4px solid var(--brand); padding:8px 12px; margin:10px 0; }
+  @media print {
+    body { background:#fff; }
+    .page { box-shadow:none; margin:0; padding:0; max-width:none; }
+    h2 { page-break-after:avoid; }
+    table, tr { page-break-inside:avoid; }
+  }
+  @media (max-width:640px){ .page{padding:20px 16px;} .toc ol{columns:1;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Test Plan</h1>
+<div class="sub">VWO Login Dashboard (app.vwo.com) &mdash; derived from the VWO Login Dashboard PRD<br>
+Author: Rajesh Thomas &nbsp;|&nbsp; Template version 1.0.0 &nbsp;|&nbsp; Document date: 2026-10-29</div>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+  <li>Objective</li><li>Scope</li><li>Inclusions</li><li>Test Environments</li>
+  <li>Defect Reporting Procedure</li><li>Test Strategy</li><li>Test Schedule</li><li>Test Deliverables</li>
+  <li>Entry and Exit Criteria</li><li>Test Execution</li><li>Test Closure</li><li>Tools</li>
+  <li>Risks and Mitigations</li><li>Approvals</li>
+</ol>
+</div>
+
+<h2>1. Objective</h2>
+<p>The goal of this test plan is to ensure the quality, functionality, security, accessibility and performance of the VWO (Visual Website Optimizer) login dashboard hosted at <strong>app.vwo.com</strong>.</p>
+<p>The login dashboard is the entry point to VWO's experimentation, personalization and analytics tools. Testing verifies that it delivers a secure, intuitive and efficient login experience, as defined in the PRD, with the following success targets:</p>
+<ul>
+  <li>Login success rate of 95%+ successful authentication attempts</li>
+  <li>Login page load time under 2 seconds on standard connections</li>
+  <li>90%+ user satisfaction for the login experience</li>
+  <li>Zero successful brute-force attacks or unauthorized access; no session hijacking</li>
+  <li>100% compliance with security audit requirements</li>
+  <li>Login-related support tickets reduced by 20%</li>
+</ul>
+
+<h2>2. Scope</h2>
+<p>Scope of the test plan for the VWO Login Dashboard:</p>
+
+<h3>2.1 Functional Testing</h3>
+<ul>
+  <li>Email and password login with secure validation</li>
+  <li>Remember Me (persistent login) checkbox</li>
+  <li>Session management with configurable timeout</li>
+  <li>Optional Multi-Factor Authentication (2FA)</li>
+  <li>Enterprise Single Sign-On (SAML, OAuth and other protocols) and optional social login (Google, Microsoft, other identity providers)</li>
+  <li>Forgot Password flow: email-based reset, secure token generation, password recovery options</li>
+  <li>Account registration link to the free trial signup</li>
+  <li>Product announcement banner (new UI launch, Light and Dark Mode)</li>
+  <li>Transition to the VWO core dashboard after successful authentication</li>
+</ul>
+
+<h3>2.2 Data Validation Testing</h3>
+<ul>
+  <li>Real-time field validation on blur</li>
+  <li>Email format verification, including mobile keyboard type</li>
+  <li>Password strength indicator and enforced password complexity</li>
+  <li>Clear, actionable error messages for failed authentication</li>
+</ul>
+
+<h3>2.3 UI / UX Testing</h3>
+<ul>
+  <li>Auto-focus on the first input field</li>
+  <li>Clickable form labels</li>
+  <li>Loading states during authentication</li>
+  <li>Brand consistency with the VWO design system</li>
+  <li>Light and Dark Mode theme support</li>
+</ul>
+
+<h3>2.4 Responsive and Compatibility Testing</h3>
+<ul><li>Mobile-optimized, touch-friendly interface across supported browsers, operating systems and devices</li></ul>
+
+<h3>2.5 Accessibility Testing</h3>
+<ul>
+  <li>Screen reader support (ARIA labels), keyboard navigation, high contrast mode</li>
+  <li>WCAG 2.1 AA compliance</li>
+</ul>
+
+<h3>2.6 Security Testing</h3>
+<ul>
+  <li>Encryption of authentication data in transit; HTTPS/TLS enforcement</li>
+  <li>Encrypted password storage using industry-standard hashing</li>
+  <li>Secure session token generation and management; session hijacking protection</li>
+  <li>Rate limiting against brute-force attacks</li>
+  <li>OWASP authentication guideline compliance</li>
+</ul>
+
+<h3>2.7 Compliance Testing</h3>
+<ul><li>GDPR and CCPA data handling; enterprise security policies and audit trail support</li></ul>
+
+<h3>2.8 Performance, Load and Scalability Testing</h3>
+<ul>
+  <li>Page load within 2 seconds; compressed images; minified CSS/JavaScript; CDN usage</li>
+  <li>Thousands of simultaneous login attempts; behavior under traffic spikes (auto-scaling)</li>
+  <li>99.9% availability; multi-region performance</li>
+</ul>
+
+<h3>2.9 Integration Testing</h3>
+<ul>
+  <li>Hand-off to the VWO core platform and personalized dashboard</li>
+  <li>Login success/failure analytics tracking</li>
+  <li>Customer support system integration for login assistance</li>
+  <li>Marketing / onboarding / analytics tool integration</li>
+</ul>
+
+<h3>2.10 End-to-End User Journey Testing</h3>
+<ul>
+  <li>New user: discovery, registration path, onboarding</li>
+  <li>Returning user: quick access, dashboard transition, recent activity context preservation</li>
+  <li>Error recovery: error identification, recovery options, success confirmation</li>
+</ul>
+
+<h3>2.11 Regression and Ad Hoc Testing</h3>
+<ul>
+  <li>Regression after bug fixes or updates across the development phases</li>
+  <li>Exploratory testing to find hidden defects and usability issues</li>
+</ul>
+
+<h3>2.12 Out of Scope</h3>
+<p>The PRD lists the following under <em>Future Enhancements</em>; they are not tested in this plan: biometric authentication, adaptive (risk-based) authentication, Progressive Web App, and A/B testing, behavior analysis and personalization of the login page.</p>
+
+<div class="note">The scope may evolve during testing based on feedback, changing requirements or discoveries. It will be reviewed and adjusted throughout the testing phase.</div>
+
+<h2>3. Inclusions</h2>
+<table>
+<tr><th style="width:24%">Area</th><th>Test coverage</th></tr>
+<tr><td>Login (Authentication)</td><td>Valid email and password; invalid email; wrong password; empty fields; unregistered user; case and whitespace handling; Remember Me on/off; login with Enter key; redirect to dashboard on success.</td></tr>
+<tr><td>Multi-Factor Authentication</td><td>2FA prompt for enrolled accounts; valid and invalid codes; expired code; accounts without 2FA.</td></tr>
+<tr><td>SSO and Social Login</td><td>SAML and OAuth enterprise SSO flows; Google and Microsoft sign-in; failed or cancelled provider authentication.</td></tr>
+<tr><td>Session Management</td><td>Configurable timeout; session expiry behavior; persistent session with Remember Me; logout; session token security.</td></tr>
+<tr><td>Forgot Password</td><td>Reset request for registered and unregistered email; reset email delivery; token validity, expiry and single use; password complexity enforcement on reset.</td></tr>
+<tr><td>Input Validation</td><td>Validation on blur; email format; password strength indicator; boundary values for field length; special characters and invalid input; mandatory fields.</td></tr>
+<tr><td>Error Handling</td><td>Clear and actionable messages; no sensitive information disclosure in errors; recovery paths and support access.</td></tr>
+<tr><td>UI / UX</td><td>Auto-focus; clickable labels; loading state; branding; announcement banner; Light and Dark Mode; registration link to free trial.</td></tr>
+<tr><td>Responsive / Compatibility</td><td>Layout and touch controls on desktop, tablet and mobile; supported browsers and operating systems.</td></tr>
+<tr><td>Accessibility</td><td>Screen reader (ARIA), full keyboard navigation, high contrast mode, WCAG 2.1 AA checks.</td></tr>
+<tr><td>Security</td><td>HTTPS enforcement; encryption in transit; SQL injection and XSS on input fields; brute-force and rate limiting; session hijacking; password storage; OWASP authentication checks.</td></tr>
+<tr><td>Compliance</td><td>GDPR and CCPA handling of user data; audit trail support for enterprise policies.</td></tr>
+<tr><td>Performance and Load</td><td>Page load under 2 seconds; asset compression and minification; CDN delivery; concurrent login attempts; spike behavior; multi-region response time.</td></tr>
+<tr><td>Integration</td><td>Core platform hand-off; analytics event capture for success and failure; support system links; onboarding and marketing tool integration.</td></tr>
+<tr><td>End-to-End Flows</td><td>New user (discovery, signup, onboarding); returning user (quick access, recent activity); error recovery.</td></tr>
+<tr><td>Regression</td><td>Re-test of fixed defects and impacted login features after each build or phase.</td></tr>
+</table>
+
+<h3>Development phases covered (per PRD)</h3>
+<table>
+<tr><th>Phase</th><th>Focus</th></tr>
+<tr><td>Phase 1: Core Authentication</td><td>Secure login form, basic validation and error handling, password reset</td></tr>
+<tr><td>Phase 2: Enhanced UX</td><td>Mobile optimization and responsive design, accessibility, advanced validation and feedback</td></tr>
+<tr><td>Phase 3: Enterprise Features</td><td>SSO integration, advanced security features, analytics and monitoring</td></tr>
+</table>
+
+<h2>4. Test Environments</h2>
+<ul>
+  <li><strong>Operating systems and browsers:</strong>
+    <ul>
+      <li>Windows 10 &ndash; Chrome, Firefox and Edge</li>
+      <li>Mac OS &ndash; Safari</li>
+      <li>Android Mobile OS &ndash; Chrome</li>
+      <li>iPhone Mobile OS &ndash; Safari</li>
+    </ul>
+  </li>
+  <li><strong>Device types:</strong> desktop, laptop, tablet and smartphone (touch-friendly controls and mobile keyboards are in scope).</li>
+  <li><strong>Network:</strong> standard connections for the 2-second load target; other connection types (Wi-Fi, cellular, wired) as available.</li>
+  <li><strong>Security and access:</strong> test accounts for password login, 2FA, SSO and social login; access permissions for testers, developers and stakeholders to be granted before execution.</li>
+</ul>
+<table>
+<tr><th style="width:20%">Name</th><th>Env URL</th></tr>
+<tr><td>QA</td><td><span class="tbd">TBD</span> (not provided in the PRD)</td></tr>
+<tr><td>Pre Prod</td><td><span class="tbd">TBD</span> (not provided in the PRD)</td></tr>
+<tr><td>Production (reference)</td><td>https://app.vwo.com</td></tr>
+</table>
+
+<h2>5. Defect Reporting Procedure</h2>
+<ul>
+  <li><strong>Defect criteria:</strong> deviation from the PRD requirements, user experience issues, or technical errors.</li>
+  <li><strong>Reporting steps:</strong> use the designated template with detailed reproduction steps, and attach screenshots or logs.</li>
+  <li><strong>Triage:</strong> assign severity and priority, and assign to the appropriate team member for investigation and resolution.</li>
+  <li><strong>Tracking tool:</strong> JIRA.</li>
+  <li><strong>Roles:</strong> testers raise defects, developers fix them, the test lead triages and tracks.</li>
+  <li><strong>Communication:</strong> defects found each day are sent to development management in an end-of-day status email.</li>
+  <li><strong>Metrics:</strong> number of defects found, time taken to resolve, and percentage of defects successfully fixed.</li>
+</ul>
+<table>
+<tr><th style="width:30%">Defect Process</th><th>POC</th></tr>
+<tr><td>New Frontend</td><td>Devesh</td></tr>
+<tr><td>Backend</td><td>Sonal</td></tr>
+<tr><td>Dev Ops</td><td>Prajeeth</td></tr>
+</table>
+
+<h2>6. Test Strategy</h2>
+<h3>Step 1: Test design</h3>
+<ul>
+  <li>Create test scenarios and test cases for the features in scope.</li>
+  <li>Test design techniques: Equivalence Class Partition, Boundary Value Analysis, Decision Table Testing, State Transition Testing, Use Case Testing.</li>
+  <li>Experience-based techniques: Error Guessing and Exploratory Testing.</li>
+  <li>Test cases are prioritized.</li>
+</ul>
+<h3>Step 2: Test execution procedure</h3>
+<ul>
+  <li>Smoke testing first, to confirm the important functionality works.</li>
+  <li>If smoke testing fails, the build is rejected and we wait for a stable build.</li>
+  <li>On a stable build, perform in-depth testing using the test cases.</li>
+  <li>Multiple test resources test the application on multiple supported environments simultaneously.</li>
+  <li>Bugs are reported in JIRA and an end-of-day status email goes to development management.</li>
+  <li>Types of testing: Smoke and Sanity, Regression and Retesting, Usability, Functionality and UI, plus Security, Accessibility, Performance and Compatibility as described in Scope.</li>
+  <li>Test cycles repeat until the product meets the quality bar.</li>
+</ul>
+<h3>Step 3: Best practices</h3>
+<ul>
+  <li><strong>Context Driven Testing</strong> &ndash; testing as per the context of the application.</li>
+  <li><strong>Shift Left Testing</strong> &ndash; start testing from the early stages of development rather than waiting for a stable build.</li>
+  <li><strong>Exploratory Testing</strong> &ndash; in addition to normal test case execution.</li>
+  <li><strong>End to End Flow Testing</strong> &ndash; multi-functionality scenarios simulating real user flows.</li>
+</ul>
+
+<h2>7. Test Schedule</h2>
+<p>The application will be tested over <strong>2 Sprints</strong>.</p>
+<table>
+<tr><th>Task</th><th>Dates</th></tr>
+<tr><td>Creating Test Plan</td><td><span class="tbd">TBD</span></td></tr>
+<tr><td>Test Case Creation</td><td><span class="tbd">TBD</span></td></tr>
+<tr><td>Test Case Execution</td><td><span class="tbd">TBD</span></td></tr>
+<tr><td>Summary Reports Submission Date</td><td><span class="tbd">TBD</span></td></tr>
+</table>
+
+<h2>8. Test Deliverables</h2>
+<ul>
+  <li>Test Plan</li>
+  <li>Test Scenarios</li>
+  <li>Test Cases</li>
+  <li>Test Case Reports</li>
+  <li>Defect Reports</li>
+  <li>Test Summary Report</li>
+</ul>
+
+<h2>9. Entry and Exit Criteria</h2>
+<p>Entry and exit criteria for every phase of the Software Testing Life Cycle:</p>
+<h3>Requirement Analysis</h3>
+<p><strong>Entry Criteria:</strong></p>
+<ul><li>The testing team has received the requirements document (PRD) or project details.</li></ul>
+<p><strong>Exit Criteria:</strong></p>
+<ul><li>List of requirements explored and understood by the testing team.</li><li>Doubts are cleared.</li></ul>
+
+<h2>10. Test Execution</h2>
+<p><strong>Entry Criteria:</strong></p>
+<ul><li>Test Scenarios and Test Cases documents are signed off by the client.</li><li>Application is ready for testing.</li></ul>
+<p><strong>Exit Criteria:</strong></p>
+<ul><li>Test Case Reports and Defect Reports are ready.</li></ul>
+
+<h2>11. Test Closure</h2>
+<p><strong>Entry Criteria:</strong></p>
+<ul><li>Test Case Reports and Defect Reports are ready.</li></ul>
+<p><strong>Exit Criteria:</strong></p>
+<ul><li>Test Summary Reports.</li></ul>
+
+<h2>12. Tools</h2>
+<ul>
+  <li>JIRA Bug Tracking Tool</li>
+  <li>Mind map Tool</li>
+  <li>Snipping Screenshot Tool</li>
+  <li>Word and Excel documents</li>
+</ul>
+
+<h2>13. Risks and Mitigations</h2>
+<table>
+<tr><th>Risk</th><th>Mitigation</th></tr>
+<tr><td>Non-availability of a resource</td><td>Backup resource planning</td></tr>
+<tr><td>Build URL is not working</td><td>Resources will work on other tasks</td></tr>
+<tr><td>Less time for testing</td><td>Ramp up the resources based on the client needs dynamically</td></tr>
+</table>
+<p>Product risks identified in the PRD that testing will specifically target:</p>
+<table>
+<tr><th>PRD risk</th><th>Test focus</th></tr>
+<tr><td>Security (brute force, session hijacking, unauthorized access)</td><td>Security testing, rate limiting, session token checks, OWASP authentication checks</td></tr>
+<tr><td>Performance (traffic spikes, load)</td><td>Load and performance testing under various load conditions, auto-scaling behavior</td></tr>
+</table>
+
+<h2>14. Approvals</h2>
+<p>The team will send the following documents for client approval. Testing continues to the next step only once these approvals are done.</p>
+<ul><li>Test Plan</li><li>Test Scenarios</li><li>Test Cases</li><li>Reports</li></ul>
+<table>
+<tr><th>Name</th><th>Role</th><th>Signature</th><th>Date</th></tr>
+<tr><td>&nbsp;</td><td>Client / Stakeholder</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>Rajesh Thomas</td><td>Test Plan Author</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+
+</div>
+</body>
+</html>
