@@ -14,53 +14,33 @@ test.describe('VWO Login - Invalid scenarios', () => {
   let loginPage;
 
   test.beforeEach(async ({ page }) => {
-    try {
-      loginPage = new LoginPage(page);
-      await loginPage.open();
-    } catch (error) {
-      throw new Error(`Setup failed: ${error.message}`);
-    }
+    loginPage = new LoginPage(page);
+    await loginPage.open();
   });
 
   test.afterEach(async ({ page }, testInfo) => {
-    try {
-      if (testInfo.status !== testInfo.expectedStatus) {
-        await testInfo.attach('failure-url', { body: page.url(), contentType: 'text/plain' });
-      }
-    } catch (error) {
-      throw new Error(`Teardown failed: ${error.message}`);
+    if (testInfo.status !== testInfo.expectedStatus) {
+      await testInfo.attach('failure-url', { body: page.url(), contentType: 'text/plain' });
     }
   });
 
   for (const data of invalidCredentials) {
     test(`[PRD: Error Recovery Flow > Error Identification] ${data.name} shows an error and stays on the login page`, async () => {
-      try {
-        await loginPage.doLogin(data.user, data.pass);
-        await expect(loginPage.errorNotification).toBeVisible();
-        await loginPage.expectOnLoginPage();
-      } catch (error) {
-        throw new Error(`Invalid login check failed for "${data.name}": ${error.message}`);
-      }
+      await loginPage.doLogin(data.user, data.pass);
+      await expect(loginPage.errorNotification).toBeVisible();
+      await loginPage.expectOnLoginPage();
     });
   }
 
   test('[PRD: User Input Validation > Error Handling] error message is shown for wrong credentials', async () => {
-    try {
-      await loginPage.doLogin('invalid.user@example.com', 'WrongPass@123');
-      await expect(loginPage.errorNotification).toHaveText(/Your email, password, IP address or location did not match/);
-    } catch (error) {
-      throw new Error(`Error message check failed: ${error.message}`);
-    }
+    await loginPage.doLogin('invalid.user@example.com', 'WrongPass@123');
+    await expect(loginPage.errorNotification).toHaveText(/Your email, password, IP address or location did not match/);
   });
 
   test('[PRD: Error Recovery Flow > Recovery Options] Forgot Password option remains available after a failed login', async () => {
-    try {
-      await loginPage.doLogin('invalid.user@example.com', 'WrongPass@123');
-      await expect(loginPage.errorNotification).toBeVisible();
-      await expect(loginPage.forgotPasswordButton).toBeVisible();
-      await expect(loginPage.forgotPasswordButton).toBeEnabled();
-    } catch (error) {
-      throw new Error(`Recovery option check failed: ${error.message}`);
-    }
+    await loginPage.doLogin('invalid.user@example.com', 'WrongPass@123');
+    await expect(loginPage.errorNotification).toBeVisible();
+    await expect(loginPage.forgotPasswordButton).toBeVisible();
+    await expect(loginPage.forgotPasswordButton).toBeEnabled();
   });
 });

@@ -7,7 +7,7 @@ Generate a Complete Playwright with JavaScript automation framework following en
 - Automate and verify the results of the login page https://app.wingify.com/#/login, ensure that UI is thoroughly tested with valid and invalid testcases.
 - Derive the testcases from the attached Product Requirements Document (resources/Product Requirements Document_ VWO Login Dashboard.docx) and trace every test to a PRD requirement by citing the PRD section in the test title or Allure description.
 [Critical] - Use @playwright/test with CommonJS (require). Apply test.describe, test, test.beforeEach, test.afterEach and the necessary setup/teardown logic.
-[Critical] Implement robust exception handling within both the Page Object class and the test scripts using structured try–catch blocks, rethrowing errors with meaningful context.
+[Critical] Implement exception handling the Playwright way: let Playwright's auto-waiting and assertion errors propagate unchanged, use test.step() to give actions meaningful names in the report, and use try/finally only for guaranteed cleanup or try/catch only for genuinely optional behavior or failure diagnostics that rethrow the original error. Do not wrap actions or assertions in try/catch.
 [Mandatory] Use the Page Object Model as a JavaScript class, with locators defined in the constructor and reusable action methods.
 [Mandatory] - Use Playwright recommended locators wherever possible, in this order: getByRole, getByLabel, getByPlaceholder, getByText, getByTestId. Only where a recommended locator is not viable, use another locator type (CSS or XPath through page.locator).
 [Mandatory] - Please add an Allure report using the allure-playwright reporter.
